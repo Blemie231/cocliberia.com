@@ -1,0 +1,1566 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churches of Christ in Liberia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0, 31, 91, 0.8), rgba(0, 31, 91, 0.9)), url('https://placehold.co/1920x1080/001F5B/FFFFFF?text=Churches+of+Christ+in+Liberia') no-repeat center center;
+            background-size: cover;
+        }
+        .belief-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .belief-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .county-highlight {
+            transition: all 0.3s ease;
+        }
+        .county-highlight:hover {
+            background-color: #f0f9ff;
+            border-left: 4px solid #FFD700;
+        }
+        .prayer-item {
+            transition: all 0.2s ease;
+        }
+        .prayer-item:hover {
+            background-color: #f8f9fa;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #FFD700;
+        }
+        .btn-primary {
+            background-color: #001F5B;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #003380;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Live Feed Styles */
+        .live-feed {
+            height: 80px;
+            overflow: hidden;
+            background: linear-gradient(90deg, #001F5B, #003380);
+            color: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .feed-content {
+            white-space: nowrap;
+            animation: scrollLeft 30s linear infinite;
+        }
+        
+        @keyframes scrollLeft {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+        
+        /* Singles Section */
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .profile-image {
+            height: 200px;
+            background-color: #e0e7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4f46e5;
+            font-size: 40px;
+        }
+        
+        .profile-info {
+            padding: 15px;
+        }
+        
+        .interest-tag {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #1e40af;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin: 4px 4px 4px 0;
+        }
+        
+        /* AI Chat Widget Styles */
+        #ai-chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 350px;
+            height: 500px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: none;
+            background: white;
+            border: 2px solid #001F5B;
+            flex-direction: column;
+        }
+        
+        #ai-chat-header {
+            background: #001F5B;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: move;
+        }
+        
+        #ai-chat-header h3 {
+            margin: 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+        
+        #ai-chat-header i {
+            margin-right: 8px;
+            color: #FFD700;
+        }
+        
+        #ai-chat-header button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        
+        #ai-chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f9f9f9;
+        }
+        
+        #ai-chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .user-message {
+            background: #001F5B;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .ai-message {
+            background: white;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e0e0e0;
+        }
+        
+        #ai-chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+        
+        #ai-chat-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        #ai-chat-input button {
+            background: #001F5B;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #ai-chat-input button:hover {
+            background: #003380;
+        }
+        
+        #ai-chat-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: #001F5B;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            box-shadow: 0 4px 15px rgba(0, 31, 91, 0.4);
+            cursor: pointer;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        #ai-chat-toggle:hover {
+            transform: scale(1.1);
+            background: #003380;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 10px 15px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            align-self: flex-start;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        /* Music Player Styles */
+        .music-player {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .song-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .song-image {
+            width: 60px;
+            height: 60px;
+            background: #e0e7ff;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: #1e40af;
+            font-size: 24px;
+        }
+        
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #001F5B;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        /* Login Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: black;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        
+        .county-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold text-blue-900">
+                        <i class="fas fa-cross text-yellow-400 mr-2"></i>COCLiberia
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-blue-900 hover:text-yellow-400 px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link text-blue-900 hover:text-yellow-400 px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#beliefs" class="nav-link text-blue-900 hover:text-yellow-400 px-3 py-2 text-sm font-medium">Beliefs</a>
+                        <a href="#churches" class="nav-link text-blue-900 hover:text-yellow-400 px-3 py-2 text-sm font-medium">Churches</a>
+                        <a href="#programs" class="nav-link text-blue-900 hover:text-yellow-400 px-3 py-2 text-sm font-medium">Programs</a>
+                        <a href="#singles" class="nav-link text-blue-900 hover:text-yellow-400 px-3 py-2 text-sm font-medium">Singles</a>
+                        <a href="#contact" class="nav-link text-blue-900 hover:text-yellow-400 px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button class="text-blue-900 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Live Feed Section -->
+    <div class="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-2">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="live-feed">
+                <div id="live-feed-content" class="feed-content">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section text-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Restoring New Testament Christianity in Liberia</h1>
+            <p class="text-xl md:text-2xl mb-10 opacity-90">One Church, One Faith, One Lord – Across All 15 Counties</p>
+            <div class="space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#churches" class="btn-primary inline-block px-8 py-4 rounded-lg text-lg font-semibold mb-4 sm:mb-0 transition duration-300">
+                    <i class="fas fa-map-marker-alt mr-2"></i>Find a Church
+                </a>
+                <a href="#media" class="inline-block px-8 py-4 rounded-lg text-lg font-semibold bg-transparent border-2 border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-blue-900 transition duration-300">
+                    <i class="fas fa-play-circle mr-2"></i>Watch Sermons
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Our Ministry in Pictures</h2>
+                <p class="text-xl text-gray-600">Moments of worship, service, and community from across Liberia</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div>
+                    <img src="https://placehold.co/400x300/001F5B/FFFFFF?text=Church+Service" alt="Church Service" class="gallery-img">
+                    <p class="text-center mt-2 text-gray-600">Worship in Monrovia</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x300/001F5B/FFFFFF?text=Baptism" alt="Baptism" class="gallery-img">
+                    <p class="text-center mt-2 text-gray-600">Baptism in River Gee</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x300/001F5B/FFFFFF?text=Youth+Camp" alt="Youth Camp" class="gallery-img">
+                    <p class="text-center mt-2 text-gray-600">Youth Bible Camp</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x300/001F5B/FFFFFF?text=Relief+Work" alt="Relief Work" class="gallery-img">
+                    <p class="text-center mt-2 text-gray-600">Community Relief in Nimba</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x300/001F5B/FFFFFF?text=Preacher+Training" alt="Preacher Training" class="gallery-img">
+                    <p class="text-center mt-2 text-gray-600">Bible College Graduation</p>
+                </div>
+                <div>
+                    <img src="https://placehold.co/400x300/001F5B/FFFFFF?text=Evangelism" alt="Evangelism" class="gallery-img">
+                    <p class="text-center mt-2 text-gray-600">Door-to-Door Outreach</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music Player Section -->
+    <section class="bg-gradient-to-r from-purple-50 to-blue-50 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-blue-900 mb-2">Hymns & Worship Songs</h2>
+                <p class="text-gray-600">Traditional a cappella hymns sung in our congregations</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="music-player">
+                    <div class="song-info">
+                        <div class="song-image">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900">Amazing Grace</h4>
+                            <p class="text-sm text-gray-600">John Newton</p>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg mt-2">
+                        <p class="text-sm">Amazing grace! How sweet the sound, that saved a wretch like me! I once was lost, but now am found, was blind, but now I see. 'Twas grace that taught my heart to fear, and grace my fears relieved; how precious did that grace appear the hour I first believed.</p>
+                    </div>
+                </div>
+                <div class="music-player">
+                    <div class="song-info">
+                        <div class="song-image">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900">When Peace Like A River</h4>
+                            <p class="text-sm text-gray-600">Horatio Spafford</p>
+                        </div>
+                    </div>
+                    <div class="p-3 bg-white rounded-lg mt-2">
+                        <p class="text-sm">When peace like a river attendeth my way, when sorrows like sea billows roll, whatever my lot, Thou has taught me to say, 'It is well, it is well with my soul.' Though Satan should buffet, though trials should come, all is well while the Master is nigh; His grace all sufficient shall be my supply, 'It is well, it is well with my soul.'</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Giving Section -->
+    <section class="py-16 bg-green-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-lg shadow-lg p-8">
+                <div class="text-center mb-8">
+                    <i class="fas fa-hand-holding-usd text-green-600 text-4xl mb-4"></i>
+                    <h2 class="text-3xl font-bold text-blue-900 mb-4">Online Giving</h2>
+                    <p class="text-xl text-gray-600">Support the work of Churches of Christ in Liberia through secure mobile donations</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-green-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-green-800 mb-4">Mobile Money</h3>
+                        <div class="space-y-3">
+                            <p class="font-semibold">To donate via Orange Money or MTN Mobile Money:</p>
+                            <p class="bg-white p-3 rounded text-center font-bold text-lg">0776258280</p>
+                            <p><strong>Account Name:</strong> Sis. Naomi Sherman</p>
+                            <p><strong>Purpose:</strong> Church of Christ Offering</p>
+                            <p class="text-sm text-gray-600">After sending, please notify your local congregation or email cocliberia@gmail.com with your name and amount for proper recording.</p>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-blue-800 mb-4">SendWave</h3>
+                        <div class="space-y-3">
+                            <p class="font-semibold">To donate via SendWave:</p>
+                            <p class="bg-white p-3 rounded text-center font-bold text-lg">0776258280</p>
+                            <p><strong>Recipient:</strong> Sis. Naomi Sherman</p>
+                            <p><strong>Address:</strong> ELWA, Monrovia, Liberia</p>
+                            <p class="text-sm text-gray-600">SendWave provides reliable international transfers to Liberian mobile numbers. All donations support church planting, Bible education, and community relief programs.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                    <p class="font-semibold text-yellow-800">Proverbs 3:9-10 - "Honor the Lord with your wealth and with the firstfruits of all your produce; then your barns will be filled with plenty, and your vats will be bursting with wine."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-blue-900 mb-4">Member & Leader Access</h2>
+                <p class="text-xl text-gray-600">Secure login for church members and leadership</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-blue-900 text-white rounded-lg p-8 text-center">
+                    <i class="fas fa-user-friends text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-4">Member Login</h3>
+                    <p class="mb-6">Access your personal profile, event registrations, giving history, and communication tools.</p>
+                    <button onclick="openModal('memberModal')" class="bg-white text-blue-900 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Member Login
+                    </button>
+                </div>
+                <div class="bg-green-700 text-white rounded-lg p-8 text-center">
+                    <i class="fas fa-user-shield text-4xl mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-4">Leader Login</h3>
+                    <p class="mb-6">Leadership portal for elders, preachers, and coordinators to manage church activities.</p>
+                    <button onclick="openModal('leaderModal')" class="bg-white text-green-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition">
+                        <i class="fas fa-sign-in-alt mr-2"></i> Leader Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Member Login -->
+    <div id="memberModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('memberModal')">&times;</span>
+            <h2 class="text-2xl font-bold text-blue-900 mb-6 text-center">Member Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="memberEmail">Email Address</label>
+                    <input type="email" id="memberEmail" placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="memberPassword">Password</label>
+                    <input type="password" id="memberPassword" placeholder="Enter your password">
+                </div>
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="remember" class="mr-2">
+                    <label for="remember" class="text-sm">Remember me</label>
+                </div>
+                <button type="button" class="btn-primary w-full py-3 rounded-lg font-semibold">Login</button>
+                <p class="text-center mt-4 text-sm">
+                    <a href="#" class="text-blue-600 hover:underline">Forgot password?</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Leader Login -->
+    <div id="leaderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('leaderModal')">&times;</span>
+            <h2 class="text-2xl font-bold text-green-700 mb-6 text-center">Leader Login</h2>
+            <form>
+                <div class="form-group">
+                    <label for="leaderEmail">Email Address</label>
+                    <input type="email" id="leaderEmail" placeholder="your.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="leaderPassword">Password</label>
+                    <input type="password" id="leaderPassword" placeholder="Enter your password">
+                </div>
+                <div class="flex items-center mb-4">
+                    <input type="checkbox" id="rememberLeader" class="mr-2">
+                    <label for="rememberLeader" class="text-sm">Remember me</label>
+                </div>
+                <button type="button" class="bg-green-700 text-white w-full py-3 rounded-lg font-semibold hover:bg-green-800 transition">Login</button>
+                <p class="text-center mt-4 text-sm">
+                    <a href="#" class="text-green-700 hover:underline">Forgot password?</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Highlights Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Our Mission & Ministry</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Rooted in the New Testament, we are committed to restoring apostolic Christianity across Liberia through biblical teaching, community service, and spiritual growth.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-8 bg-white rounded-lg shadow-lg">
+                    <div class="text-5xl text-blue-900 mb-4">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blue-900 mb-4">Nationwide Presence</h3>
+                    <p class="text-gray-600">Active in all 15 counties, from Monrovia to Sinoe, with growing congregations committed to New Testament Christianity.</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-lg shadow-lg">
+                    <div class="text-5xl text-blue-900 mb-4">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blue-900 mb-4">Biblical Teaching</h3>
+                    <p class="text-gray-600">Rooted in Scripture with "Where the Bible speaks, we speak; where the Bible is silent, we are silent" as our guiding principle.</p>
+                </div>
+                <div class="text-center p-8 bg-white rounded-lg shadow-lg">
+                    <div class="text-5xl text-blue-900 mb-4">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-blue-900 mb-4">Unity & Fellowship</h3>
+                    <p class="text-gray-600">One body in Christ, connected through shared mission, annual conferences, and regional cooperation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://placehold.co/600x400/001F5B/FFFFFF?text=Church+in+Liberia" alt="Church in Liberia" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-6">About Churches of Christ in Liberia</h2>
+                    <p class="text-lg text-gray-700 mb-6">The Churches of Christ in Liberia are part of the Restoration Movement that began in the United States in the early 1800s, with the goal of restoring New Testament Christianity by discarding man-made traditions, denominationalism, and creeds.</p>
+                    <p class="text-lg text-gray-700 mb-6">Our message came to Liberia through American missionaries, Liberian students trained in the U.S., and local evangelists. The first congregations were planted in urban centers like Monrovia and have expanded inland over the decades.</p>
+                    <div class="bg-blue-50 p-6 rounded-lg mb-6">
+                        <h3 class="text-xl font-bold text-blue-900 mb-3">Our Motto</h3>
+                        <p class="text-lg italic text-blue-800">"Where the Bible speaks, we speak; where the Bible is silent, we are silent."</p>
+                    </div>
+                    <a href="#beliefs" class="btn-primary inline-block px-6 py-3 rounded-lg font-semibold transition duration-300">
+                        Learn Our Beliefs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map and Counties Section -->
+    <section class="py-16 bg-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Our Presence Across Liberia</h2>
+                <p class="text-xl text-gray-600">Congregations in all 15 counties of Liberia</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-12">
+                <div>
+                    <img src="https://placehold.co/600x400/001F5B/FFFFFF?text=Map+of+Liberia" alt="Map of Liberia" class="rounded-lg shadow-lg w-full">
+                    <p class="text-center mt-2 text-gray-600">Map showing Churches of Christ in all 15 counties</p>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold text-blue-900 mb-6">Geographic Spread</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <h4 class="font-bold text-blue-900">Montserrado</h4>
+                            <img src="https://placehold.co/150x100/001F5B/FFFFFF?text=Monrovia" alt="Monrovia" class="county-img mt-2">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900">Nimba</h4>
+                            <img src="https://placehold.co/150x100/001F5B/FFFFFF?text=Ganta" alt="Ganta" class="county-img mt-2">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900">Bong</h4>
+                            <img src="https://placehold.co/150x100/001F5B/FFFFFF?text=Gbarnga" alt="Gbarnga" class="county-img mt-2">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900">Grand Bassa</h4>
+                            <img src="https://placehold.co/150x100/001F5B/FFFFFF?text=Buchanan" alt="Buchanan" class="county-img mt-2">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900">Lofa</h4>
+                            <img src="https://placehold.co/150x100/001F5B/FFFFFF?text=Voinjama" alt="Voinjama" class="county-img mt-2">
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-900">Maryland</h4>
+                            <img src="https://placehold.co/150x100/001F5B/FFFFFF?text=Harper" alt="Harper" class="county-img mt-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beliefs Section -->
+    <section id="beliefs" class="py-16 bg-blue-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Core Beliefs</h2>
+                <p class="text-xl text-gray-600">We emphasize New Testament Christianity, free from denominational control or creeds.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="belief-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-bible"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Biblical Authority</h3>
+                    <p class="text-gray-600 mb-3">The New Testament is the sole guide for faith and practice. Everything we practice must have clear scriptural backing.</p>
+                    <p class="text-sm text-gray-500"><strong>Scripture:</strong> 2 Timothy 3:16-17</p>
+                </div>
+                <div class="belief-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Baptism by Immersion</h3>
+                    <p class="text-gray-600 mb-3">Baptism is essential for the remission of sins. Candidates must understand and confess their faith in Jesus Christ.</p>
+                    <p class="text-sm text-gray-500"><strong>Scripture:</strong> Acts 2:38</p>
+                </div>
+                <div class="belief-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-wine-glass"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Weekly Lord's Supper</h3>
+                    <p class="text-gray-600 mb-3">Observed every first day of the week (Sunday) to remember the sacrifice of Christ.</p>
+                    <p class="text-sm text-gray-500"><strong>Scripture:</strong> Acts 20:7</p>
+                </div>
+                <div class="belief-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">A Cappella Singing</h3>
+                    <p class="text-gray-600 mb-3">No musical instruments used in worship. Singing is congregational and often in four-part harmony.</p>
+                    <p class="text-sm text-gray-500"><strong>Scripture:</strong> Ephesians 5:19</p>
+                </div>
+                <div class="belief-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Autonomous Congregations</h3>
+                    <p class="text-gray-600 mb-3">Each congregation is self-governed under Christ, with no earthly headquarters or denominational structure.</p>
+                    <p class="text-sm text-gray-500"><strong>Principle:</strong> Local church autonomy</p>
+                </div>
+                <div class="belief-card bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Christian Unity</h3>
+                    <p class="text-gray-600 mb-3">We advocate for Christian unity without man-made divisions, emphasizing "Christians only" but not the only Christians.</p>
+                    <p class="text-sm text-gray-500"><strong>Scripture:</strong> John 17:21</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Churches Section -->
+    <section id="churches" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-blue-50 p-8 rounded-lg">
+                <h3 class="text-2xl font-bold text-blue-900 mb-6 text-center">Leadership Structure</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center p-4">
+                        <div class="text-3xl text-blue-900 mb-2">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4 class="font-bold text-blue-900">Elders</h4>
+                        <p class="text-sm text-gray-600">Spiritual overseers (1 Timothy 3, Titus 1)</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="text-3xl text-blue-900 mb-2">
+                            <i class="fas fa-hands"></i>
+                        </div>
+                        <h4 class="font-bold text-blue-900">Deacons</h4>
+                        <p class="text-sm text-gray-600">Servants of physical needs (1 Timothy 3)</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="text-3xl text-blue-900 mb-2">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                        <h4 class="font-bold text-blue-900">Evangelists</h4>
+                        <p class="text-sm text-gray-600">Proclaimers of the Word</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <div class="text-3xl text-blue-900 mb-2">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h4 class="font-bold text-blue-900">Coordinators</h4>
+                        <p class="text-sm text-gray-600">Fellowship organizers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Singles Section -->
+    <section id="singles" class="py-16 bg-pink-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Christian Singles Fellowship</h2>
+                <p class="text-xl text-gray-600">Connecting faithful believers seeking godly relationships based on shared faith and values</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+                <div class="text-center mb-6">
+                    <i class="fas fa-heart text-pink-500 text-4xl mb-4"></i>
+                    <h3 class="text-xl font-bold text-blue-900 mb-2">Our Commitment to Biblical Relationships</h3>
+                    <p class="text-gray-600">We believe in relationships that honor God, based on shared faith, mutual respect, and biblical principles. All connections are guided by our Christian values and accountability.</p>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3 class="text-lg font-bold text-blue-900">Esther, 28</h3>
+                        <p class="text-sm text-gray-600 mb-3">Monrovia, Teacher</p>
+                        <p class="text-sm mb-3">Faithful member of ELWA congregation. Loves Bible study, worship, and serving orphans. Seeking a godly man who values family and spiritual growth.</p>
+                        <div>
+                            <span class="interest-tag"><i class="fas fa-book"></i> Bible Study</span>
+                            <span class="interest-tag"><i class="fas fa-hands-helping"></i> Service</span>
+                            <span class="interest-tag"><i class="fas fa-music"></i> Hymns</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3 class="text-lg font-bold text-blue-900"> Bro. Abraham Dennis, 31</h3>
+                        <p class="text-sm text-gray-600 mb-3">Monrovia, Business Owner</p>
+                        <p class="text-sm mb-3">Youth in training, passionate about evangelism and discipleship. Enjoys farming, preaching, and mentoring youth. Seeking a virtuous woman who fears the Lord.</p>
+                        <div>
+                            <span class="interest-tag"><i class="fas fa-bullhorn"></i> Evangelism</span>
+                            <span class="interest-tag"><i class="fas fa-seedling"></i> Farming</span>
+                            <span class="interest-tag"><i class="fas fa-graduation-cap"></i> Teaching</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <div class="profile-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-info">
+                        <h3 class="text-lg font-bold text-blue-900">Sis. Grace, 26</h3>
+                        <p class="text-sm text-gray-600 mb-3">Gbarnga, Nurse</p>
+                        <p class="text-sm mb-3">Compassionate healthcare worker and active in ladies' fellowship. Loves prayer, worship, and caring for the sick. Seeking a man of integrity and faith.</p>
+                        <div>
+                            <span class="interest-tag"><i class="fas fa-heart"></i> Healthcare</span>
+                            <span class="interest-tag"><i class="fas fa-pray"></i> Prayer</span>
+                            <span class="interest-tag"><i class="fas fa-hands-helping"></i> Mercy</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <h3 class="text-xl font-bold text-blue-900 mb-4">Join Our Singles Fellowship</h3>
+                <p class="text-gray-600 mb-6">We host quarterly Christian Singles events including Bible studies, service projects, and fellowship gatherings. All participants must be baptized believers committed to biblical standards of purity and accountability.</p>
+                <button class="btn-primary px-8 py-3 rounded-lg font-semibold inline-flex items-center">
+                    <i class="fas fa-plus-circle mr-2"></i> Express Interest
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Ministries & Programs</h2>
+                <p class="text-xl text-gray-600">Actively involved in both spiritual and community-based programs.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Evangelism</h3>
+                    <p class="text-gray-600">Door-to-door outreach, open-air preaching, and media teaching to spread the gospel throughout Liberia.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Youth Programs</h3>
+                    <p class="text-gray-600">Bible camps, youth retreats, and talent nights to engage and disciple the next generation.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-female"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Ladies' Fellowship</h3>
+                    <p class="text-gray-600">Monthly meetings and leadership development for women in family and church roles.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Leadership Training</h3>
+                    <p class="text-gray-600">Seminars for preachers, elders-in-training, and teachers to strengthen church leadership.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-envelope-open-text"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Bible Correspondence</h3>
+                    <p class="text-gray-600">World Bible School, Bible correspondence courses, and in-person study programs.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-3">Community Relief</h3>
+                    <p class="text-gray-600">Support for orphans and widows, medical outreaches, and disaster aid for those in need.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Education & Training</h2>
+                <p class="text-xl text-gray-600">Developing leaders through biblical education and training programs.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4 text-center">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-4 text-center">Liberia Bible College</h3>
+                    <p class="text-gray-600 mb-4">Located in Monrovia, offering Associate and Bachelor's degrees in Theology to train preachers, teachers, and missionaries.</p>
+                    <ul class="text-gray-600 space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Theological education</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Preacher training</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Missionary preparation</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Biblical scholarship</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4 text-center">
+                        <i class="fas fa-school"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-4 text-center">Regional Training Schools</h3>
+                    <p class="text-gray-600 mb-4">Located in Bong, Nimba, and other counties, focusing on short-term certificate programs in Bible and ministry.</p>
+                    <ul class="text-gray-600 space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Short-term programs</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Local leadership development</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Practical ministry training</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Rural outreach preparation</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <div class="text-4xl text-blue-900 mb-4 text-center">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-blue-900 mb-4 text-center">Online & International Training</h3>
+                    <p class="text-gray-600 mb-4">Partnerships with schools in Ghana, Nigeria, and the U.S., with access to World Bible School and Bear Valley Bible Institute.</p>
+                    <ul class="text-gray-600 space-y-2">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Distance learning</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Global partnerships</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Digital resources</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> International collaboration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prayer Section -->
+    <section class="py-16 bg-blue-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Prayer & Support</h2>
+                <p class="text-xl text-gray-600">Join us in prayer for our churches, leaders, and communities across Liberia.</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+                <h3 class="text-xl font-bold text-blue-900 mb-4">Current Prayer Focus</h3>
+                <div class="space-y-3">
+                    <div class="prayer-item p-3 border-l-4 border-yellow-400 bg-yellow-50">
+                        <p class="font-medium">Pray for youth in Nimba County as they face spiritual challenges.</p>
+                    </div>
+                    <div class="prayer-item p-3 border-l-4 border-yellow-400 bg-yellow-50">
+                        <p class="font-medium">Pray for new church plants in Sinoe and Grand Kru counties.</p>
+                    </div>
+                    <div class="prayer-item p-3 border-l-4 border-yellow-400 bg-yellow-50">
+                        <p class="font-medium">Pray for healing and comfort for members affected by recent hardships.</p>
+                    </div>
+                    <div class="prayer-item p-3 border-l-4 border-yellow-400 bg-yellow-50">
+                        <p class="font-medium">Pray for wisdom for preachers and elders as they lead their congregations.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <p class="text-lg text-gray-700 mb-6">"Therefore confess your sins to each other and pray for each other so that you may be healed. The prayer of a righteous person is powerful and effective." — James 5:16</p>
+                <button class="btn-primary px-8 py-3 rounded-lg font-semibold inline-flex items-center">
+                    <i class="fas fa-praying-hands mr-2"></i> Submit Prayer Request
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-900 mb-4">Contact Us</h2>
+                <p class="text-xl text-gray-600">We'd love to hear from you and connect you with a local congregation.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold text-blue-900 mb-6">Get in Touch</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="text-2xl text-blue-900 mr-4 mt-1">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-blue-900">Phone</h4>
+                                    <p class="text-gray-600">0776545317</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-2xl text-blue-900 mr-4 mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-blue-900">Email</h4>
+                                    <p class="text-gray-600">cocliberia@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="text-2xl text-blue-900 mr-4 mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-blue-900">Headquarters</h4>
+                                    <p class="text-gray-600">ELWA, Monrovia, Liberia</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-blue-900 mb-4">Connect With Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="text-blue-900 hover:text-blue-700 text-2xl">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="#" class="text-blue-900 hover:text-blue-700 text-2xl">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="text-blue-900 hover:text-blue-700 text-2xl">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="bg-white p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold text-blue-900 mb-6">Send Us a Message</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                                    Name
+                                </label>
+                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Your name">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                                    Email
+                                </label>
+                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Your email">
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="church">
+                                    Local Church (if applicable)
+                                </label>
+                                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="church" type="text" placeholder="Your congregation">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-700 text-sm font-bold mb-2" for="message">
+                                    Message
+                                </label>
+                                <textarea class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="message" rows="5" placeholder="Your message"></textarea>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <button class="btn-primary font-bold py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline" type="button">
+                                    Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">
+                        <i class="fas fa-cross text-yellow-400 mr-2"></i>COCLiberia
+                    </h3>
+                    <p class="mb-4">Restoring New Testament Christianity across all 15 counties of Liberia.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white hover:text-yellow-400">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-yellow-400">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+                        <a href="#" class="text-white hover:text-yellow-400">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-yellow-400">Home</a></li>
+                        <li><a href="#about" class="hover:text-yellow-400">About Us</a></li>
+                        <li><a href="#beliefs" class="hover:text-yellow-400">Beliefs</a></li>
+                        <li><a href="#churches" class="hover:text-yellow-400">Churches</a></li>
+                        <li><a href="#programs" class="hover:text-yellow-400">Programs</a></li>
+                        <li><a href="#education" class="hover:text-yellow-400">Education</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Info</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-2"></i> 0776545317
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i> cocliberia@gmail.com
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i> Sinkor, Monrovia, Liberia
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 mt-8 pt-8 text-center">
+                <p>&copy; 2025 Churches of Christ in Liberia. All rights reserved.</p>
+                <p class="text-sm mt-2">"Where the Bible speaks, we speak; where the Bible is silent, we are silent."</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Chat Toggle Button -->
+    <button id="ai-chat-toggle">
+        <i class="fas fa-robot"></i>
+    </button>
+
+    <!-- AI Chat Container -->
+    <div id="ai-chat-container">
+        <div id="ai-chat-header">
+            <h3><i class="fas fa-robot"></i> Evang. Mark - AI Assistant</h3>
+            <button id="ai-chat-close"><i class="fas fa-times"></i></button>
+        </div>
+        <div id="ai-chat-body">
+            <div id="ai-chat-messages">
+                <div class="ai-message">
+                    Greetings! I'm Evang. Mark, your AI assistant for Churches of Christ in Liberia. I can help you learn about our beliefs, find a local congregation, understand our programs, or answer questions about biblical teachings. How can I assist you today?
+                </div>
+            </div>
+        </div>
+        <div id="ai-chat-input">
+            <input type="text" placeholder="Type your question about Churches of Christ in Liberia..." id="chat-input">
+            <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script>
+        // Live Feed Content
+        const liveFeedContent = [
+            "Philippians 4:13 - I can do all things through Christ who strengthens me.",
+            "Jeremiah 29:11 - For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.",
+            "Proverbs 3:5-6 - Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.",
+            "Matthew 11:28 - Come to me, all you who are weary and burdened, and I will give you rest.",
+            "Isaiah 40:31 - But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint.",
+            "Romans 8:28 - And we know that in all things God works for the good of those who love him, who have been called according to his purpose.",
+            "Psalm 46:1 - God is our refuge and strength, an ever-present help in trouble.",
+            "Joshua 1:9 - Have I not commanded you? Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.",
+            "1 Peter 5:7 - Cast all your anxiety on him because he cares for you.",
+            "John 14:6 - I am the way and the truth and the life. No one comes to the Father except through me.",
+            "Galatians 5:22-23 - But the fruit of the Spirit is love, joy, peace, forbearance, kindness, goodness, faithfulness, gentleness and self-control.",
+            "James 1:5 - If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you.",
+            "Hebrews 11:1 - Now faith is confidence in what we hope for and assurance about what we do not see.",
+            "Colossians 3:17 - And whatever you do, whether in word or deed, do it all in the name of the Lord Jesus, giving thanks to God the Father through him.",
+            "1 John 4:7 - Dear friends, let us love one another, for love comes from God. Everyone who loves has been born of God and knows God.",
+            "Psalm 23:1 - The Lord is my shepherd, I lack nothing.",
+            "Matthew 5:16 - In the same way, let your light shine before others, that they may see your good deeds and glorify your Father in heaven.",
+            "Romans 12:12 - Be joyful in hope, patient in affliction, faithful in prayer.",
+            "Philippians 2:3 - Do nothing out of selfish ambition or vain conceit. Rather, in humility value others above yourselves.",
+            "Titus 2:14 - Who gave himself for us to redeem us from all wickedness and to purify for himself a people that are his very own, eager to do what is good.",
+            "Prayer: Heavenly Father, thank You for Your constant presence in our lives. Guide our steps today and help us to reflect Your love to everyone we meet. In Jesus' name, Amen.",
+            "Inspiration: Every day is a new opportunity to serve God and bless others. Your faithfulness in small things prepares you for greater things.",
+            "Motivation: Don't grow weary in well-doing. Your labor in the Lord is never in vain (1 Corinthians 15:58). Keep pressing forward!",
+            "Prayer: Lord, strengthen our churches across Liberia. Raise up faithful leaders and draw many to salvation through Christ. Amen.",
+            "Inspiration: Your testimony matters. Someone needs to hear how God has transformed your life through His grace.",
+            "Motivation: Even when the path is difficult, remember that God is with you. He has called you, He will equip you, and He will sustain you.",
+            "Song: 'Amazing Grace' - Amazing grace! How sweet the sound, that saved a wretch like me! I once was lost, but now am found, was blind, but now I see.",
+            "Song: 'When Peace Like A River' - When peace like a river attendeth my way, when sorrows like sea billows roll, whatever my lot, Thou has taught me to say, 'It is well, it is well with my soul.'",
+            "Song: 'How Great Thou Art' - O Lord my God, when I in awesome wonder consider all the works Thy hands have made...",
+            "Prayer: Father, bless the singles in our congregations. Guide them to godly relationships that honor You and build Your kingdom. Amen.",
+            "Inspiration: God's timing is perfect. Trust His plan for your life, even when you can't see the full picture.",
+            "Motivation: Your faith can move mountains. Don't underestimate the power of believing God for the impossible.",
+            "Prayer: Lord, protect our youth from the temptations of this world. Fill them with Your Holy Spirit and establish them in Your truth. Amen.",
+            "Inspiration: You are fearfully and wonderfully made (Psalm 139:14). God has a unique purpose for your life.",
+            "Motivation: Every act of service, no matter how small, matters to God. Keep serving with a joyful heart!",
+            "Prayer: Thank You, Lord, for the privilege of giving. May our offerings advance Your kingdom in Liberia and bring glory to Your name. Amen.",
+            "Inspiration: As iron sharpens iron, so one believer sharpens another. Your fellowship with other Christians strengthens us all.",
+            "Motivation: The harvest is plentiful but the workers are few. Pray to the Lord of the harvest to send workers into His field (Matthew 9:37-38).",
+            "Prayer: Lord, guide our leaders with Your wisdom. Give them courage, compassion, and clarity as they shepherd Your people. Amen.",
+            "Inspiration: Let your light shine before others, that they may see your good deeds and glorify your Father in heaven (Matthew 5:16).",
+            "Motivation: Greater is He that is in you than he that is in the world (1 John 4:4). You have the power of the Holy Spirit within you!",
+            "Prayer: Father, comfort those who are grieving, heal the sick, and provide for the needy in our communities. Your compassion never fails. Amen.",
+            "Inspiration: For we are God's handiwork, created in Christ Jesus to do good works, which God prepared in advance for us to do (Ephesians 2:10).",
+            "Motivation: Run with perseverance the race marked out for you, fixing your eyes on Jesus (Hebrews 12:1-2). Keep your focus on Christ!",
+            "Prayer: Lord, bless the work of Liberia Bible College. Raise up a new generation of preachers and teachers for Your kingdom. Amen.",
+            "Inspiration: The Word of God is alive and active (Hebrews 4:12). Continue studying and applying Scripture daily.",
+            "Motivation: Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up (Galatians 6:9).",
+            "Prayer: Holy Spirit, fill our worship services with Your presence. May our singing, praying, and preaching honor Christ. Amen.",
+            "Inspiration: Each of you should use whatever gift you have received to serve others, as faithful stewards of God's grace (1 Peter 4:10).",
+            "Motivation: You are the light of the world. A city on a hill cannot be hidden (Matthew 5:14). Shine brightly for Christ!",
+            "Prayer: Lord, protect our country and bring peace to all regions of Liberia. Establish justice and righteousness throughout the land. Amen."
+        ];
+
+        // Populate live feed
+        const feedContent = document.getElementById('live-feed-content');
+        let feedHTML = '';
+        for (let i = 0; i < 20; i++) {
+            const randomIndex = Math.floor(Math.random() * liveFeedContent.length);
+            feedHTML += `<span class="mx-8">${liveFeedContent[randomIndex]}</span>`;
+        }
+        feedContent.innerHTML = feedHTML;
+
+        // AI Assistant Chat Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatToggle = document.getElementById('ai-chat-toggle');
+            const chatContainer = document.getElementById('ai-chat-container');
+            const chatClose = document.getElementById('ai-chat-close');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const chatMessages = document.getElementById('ai-chat-messages');
+            
+            // Knowledge base for Pst. Mark
+            const knowledgeBase = {
+                "beliefs": "The Churches of Christ in Liberia emphasize New Testament Christianity with these core beliefs: 1) Biblical Authority - The New Testament is our sole guide. 2) Baptism by immersion for remission of sins (Acts 2:38). 3) Weekly Lord's Supper observed every first day of the week. 4) A cappella singing in worship. 5) Autonomous congregations with no denominational hierarchy. 6) Christian unity based on John 17:21.",
+                
+                "history": "The Churches of Christ came to Liberia through American missionaries and Liberian students trained in the U.S. The first congregations were established in urban centers like Monrovia in the 1970s. Growth continued across counties despite challenges during the civil wars (1989-2003). Today, we have congregations in all 15 counties of Liberia.",
+                
+                "churches": "We have congregations in all 15 counties of Liberia: Montserrado (strongest presence in Monrovia, Paynesville), Nimba (Ganta, Sanniquellie), Bong (Gbarnga), Grand Bassa, and emerging churches in Maryland, Grand Kru, Lofa, River Gee, and Sinoe counties.",
+                
+                "leadership": "Each congregation is led by qualified elders (1 Timothy 3, Titus 1) and deacons. Evangelists/preachers proclaim the Word. Church secretaries handle administration. Regional coordinators promote unity through conferences and events.",
+                
+                "education": "We have Liberia Bible College in Monrovia offering theological degrees. Regional preacher training schools operate in Bong, Nimba and other counties. We also partner with online programs like World Bible School and Bear Valley Bible Institute.",
+                
+                "programs": "Our ministries include: Evangelism (door-to-door, open-air preaching), Youth Programs (Bible camps, retreats), Ladies' Fellowship, Leadership Seminars, Bible Correspondence courses, and Community Relief for orphans, widows and disaster victims.",
+                
+                "contact": "You can reach us at 0776545317 or cocliberia@gmail.com. Our headquarters is in ELWA, Monrovia, Liberia. I can also help you find a congregation near you in any of our 15 counties.",
+                
+                "baptism": "We practice believer's baptism by full immersion for the remission of sins, based on Acts 2:38. The candidate must understand and confess faith in Jesus Christ as Lord and Savior. Baptism is an essential step in becoming a Christian.",
+                
+                "worship": "Our worship includes: 1) Singing a cappella (Ephesians 5:19), 2) Prayer, 3) Preaching/teaching from Scripture, 4) Weekly observance of the Lord's Supper (Acts 20:7), and 5) Giving as an act of worship (1 Corinthians 16:2).",
+                
+                "unity": "We advocate for Christian unity based on Jesus' prayer in John 17:21. We follow the Restoration Movement principle: 'In essentials, unity; in non-essentials, liberty; in all things, love.' Our motto is 'Where the Bible speaks, we speak; where the Bible is silent, we are silent.'",
+                
+                "future": "Our vision includes: doctrinal soundness, unity among congregations, youth development, church planting in unreached areas, digital expansion through websites and apps, establishing schools and hospitals, and full-time support for local preachers.",
+                
+                "singles": "Our Christian Singles Fellowship connects faithful believers seeking godly relationships. We currently have brothers and sisters in Monrovia, Ganta, and Gbarnga who are active in their congregations and seeking marriage according to biblical principles. We host quarterly events with proper accountability and spiritual guidance.",
+                
+                "giving": "You can support the work of Churches of Christ in Liberia through mobile money donations to 0776258280 (Naomi Sherman) via Orange Money or MTN Mobile Money. You can also send funds through SendWave to the same number. All donations are used for church planting, Bible education, and community relief programs across all 15 counties of Liberia.",
+                
+                "greeting": "Hello! I'm Pst. Mark, your AI assistant for Churches of Christ in Liberia. I'm here to help you learn about our faith, find local congregations, understand our programs, or answer biblical questions. How can I assist you today?",
+                
+                "help": "I can help you with information about our beliefs, history, congregations across Liberia's 15 counties, leadership structure, educational programs like Liberia Bible College, our various ministries, and how to get involved. Just ask me anything about Churches of Christ in Liberia!"
+            };
+
+            // Toggle chat visibility
+            chatToggle.addEventListener('click', function() {
+                if (chatContainer.style.display === 'flex') {
+                    chatContainer.style.display = 'none';
+                } else {
+                    chatContainer.style.display = 'flex';
+                    chatToggle.style.display = 'none';
+                }
+            });
+
+            chatClose.addEventListener('click', function() {
+                chatContainer.style.display = 'none';
+                chatToggle.style.display = 'flex';
+            });
+
+            // Send message function
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (message === '') return;
+
+                // Add user message
+                addMessage(message, 'user');
+                chatInput.value = '';
+
+                // Show typing indicator
+                showTypingIndicator();
+
+                // Process response after brief delay
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const response = generateResponse(message);
+                    addMessage(response, 'ai');
+                }, 1000);
+            }
+
+            // Add message to chat
+            function addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = sender === 'user' ? 'message user-message' : 'message ai-message';
+                messageDiv.textContent = text;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // Show typing indicator
+            function showTypingIndicator() {
+                const indicator = document.createElement('div');
+                indicator.className = 'typing-indicator';
+                indicator.id = 'typing-indicator';
+                indicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+                chatMessages.appendChild(indicator);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            // Remove typing indicator
+            function removeTypingIndicator() {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) {
+                    indicator.remove();
+                }
+            }
+
+            // Generate response based on knowledge base
+            function generateResponse(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // Check for keywords and provide appropriate responses
+                if (lowerMessage.includes('believe') || lowerMessage.includes('belief') || lowerMessage.includes('doctrine') || lowerMessage.includes('teach')) {
+                    return knowledgeBase.beliefs;
+                } else if (lowerMessage.includes('history') || lowerMessage.includes('origin') || lowerMessage.includes('started')) {
+                    return knowledgeBase.history;
+                } else if (lowerMessage.includes('church') || lowerMessage.includes('congregation') || lowerMessage.includes('where') || lowerMessage.includes('find')) {
+                    return knowledgeBase.churches;
+                } else if (lowerMessage.includes('leader') || lowerMessage.includes('elder') || lowerMessage.includes('deacon') || lowerMessage.includes('preacher')) {
+                    return knowledgeBase.leadership;
+                } else if (lowerMessage.includes('education') || lowerMessage.includes('school') || lowerMessage.includes('college') || lowerMessage.includes('study')) {
+                    return knowledgeBase.education;
+                } else if (lowerMessage.includes('program') || lowerMessage.includes('ministry') || lowerMessage.includes('activity') || lowerMessage.includes('youth') || lowerMessage.includes('ladies')) {
+                    return knowledgeBase.programs;
+                } else if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('email') || lowerMessage.includes('address')) {
+                    return "You can contact Churches of Christ in Liberia at: Phone: 0776545317, Email: cocliberia@gmail.com, Headquarters: ELWA, Monrovia, Liberia. I'm also available to answer any questions you may have about our work in all 15 counties of Liberia.";
+                } else if (lowerMessage.includes('baptism') || lowerMessage.includes('immerse') || lowerMessage.includes('water')) {
+                    return knowledgeBase.baptism;
+                } else if (lowerMessage.includes('worship') || lowerMessage.includes('service') || lowerMessage.includes('singing') || lowerMessage.includes('supper')) {
+                    return knowledgeBase.worship;
+                } else if (lowerMessage.includes('unity') || lowerMessage.includes('denomination') || lowerMessage.includes('divisions')) {
+                    return knowledgeBase.unity;
+                } else if (lowerMessage.includes('future') || lowerMessage.includes('vision') || lowerMessage.includes('plan')) {
+                    return knowledgeBase.future;
+                } else if (lowerMessage.includes('single') || lowerMessage.includes('dating') || lowerMessage.includes('marriage') || lowerMessage.includes('relationship')) {
+                    return knowledgeBase.singles;
+                } else if (lowerMessage.includes('give') || lowerMessage.includes('donate') || lowerMessage.includes('offering') || lowerMessage.includes('tithes') || lowerMessage.includes('money')) {
+                    return knowledgeBase.giving;
+                } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('greetings')) {
+                    return knowledgeBase.greeting;
+                } else if (lowerMessage.includes('help') || lowerMessage.includes('assist')) {
+                    return knowledgeBase.help;
+                } else if (lowerMessage.includes('thank')) {
+                    return "You're very welcome! If you have any other questions about Churches of Christ in Liberia, our beliefs, or how to get connected with a local congregation, please don't hesitate to ask. May the grace of our Lord Jesus Christ be with you.";
+                } else {
+                    return "I appreciate your question. While I don't have specific information about that topic, I can tell you that Churches of Christ in Liberia are committed to restoring New Testament Christianity across all 15 counties. We emphasize biblical authority, believer's baptism by immersion, weekly observance of the Lord's Supper, a cappella singing, and autonomous congregations. For more specific information, you might want to ask about our beliefs, history, congregations, or programs. How else can I assist you today?";
+                }
+            }
+
+            // Event listeners
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            // Make chat draggable
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            function dragStart(e) {
+                if (e.target.id === 'ai-chat-header' || e.target.parentElement.id === 'ai-chat-header') {
+                    isDragging = true;
+                    initialX = e.clientX - xOffset;
+                    initialY = e.clientY - yOffset;
+                }
+            }
+
+            function dragEnd() {
+                initialX = currentX;
+                initialY = currentY;
+                isDragging = false;
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
+                    setTranslate(currentX, currentY, chatContainer);
+                }
+            }
+
+            function setTranslate(xPos, yPos, el) {
+                el.style.transform = `translate(${xPos}px, ${yPos}px)`;
+            }
+
+            document.getElementById('ai-chat-header').addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+        });
+
+        // Music player functionality
+        document.querySelectorAll('.play-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const icon = this.querySelector('i');
+                if (icon.classList.contains('fa-play')) {
+                    icon.classList.remove('fa-play');
+                    icon.classList.add('fa-pause');
+                } else {
+                    icon.classList.remove('fa-pause');
+                    icon.classList.add('fa-play');
+                }
+            });
+        });
+
+        // Live feed animation
+        setInterval(() => {
+            const feedContent = document.getElementById('live-feed-content');
+            const items = Array.from(feedContent.children);
+            const firstItem = items[0].cloneNode(true);
+            feedContent.removeChild(items[0]);
+            feedContent.appendChild(firstItem);
+            
+            // Add new random item
+            const randomIndex = Math.floor(Math.random() * liveFeedContent.length);
+            const newItem = document.createElement('span');
+            newItem.className = 'mx-8';
+            newItem.textContent = liveFeedContent[randomIndex];
+            feedContent.appendChild(newItem);
+        }, 5000);
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
+```
