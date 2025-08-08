@@ -873,6 +873,20 @@
                 <p class="text-xl text-gray-600">Connecting faithful believers seeking godly relationships based on shared faith and values</p>
             </div>
             
+
+            <!-- Add image section below -->
+            <section style="text-align:center; margin: 40px 0;">
+              <h3 class="text-2xl font-semibold text-blue-800 mb-6">Our Ministry in Pictures</h3>
+              <div style="display: inline-block; margin-top: 20px;">
+                <img src="FB_IMG_1753633773491.jpg" alt="Church image 1" width="300" style="margin: 10px;">
+                <img src="IMG-20250720-WA0039.jpg" alt="Church image 2" width="300" style="margin: 10px;">
+              </div>
+            </section>
+            <!-- End of image section -->
+
+        </div>
+    </div>
+</section>
             <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
                 <div class="text-center mb-6">
                     <i class="fas fa-heart text-pink-500 text-4xl mb-4"></i>
@@ -1327,7 +1341,7 @@
             const chatSend = document.getElementById('chat-send');
             const chatMessages = document.getElementById('ai-chat-messages');
             
-            // Knowledge base for Pst. Mark
+            // Knowledge base for Evang. Mark
             const knowledgeBase = {
                 "beliefs": "The Churches of Christ in Liberia emphasize New Testament Christianity with these core beliefs: 1) Biblical Authority - The New Testament is our sole guide. 2) Baptism by immersion for remission of sins (Acts 2:38). 3) Weekly Lord's Supper observed every first day of the week. 4) A cappella singing in worship. 5) Autonomous congregations with no denominational hierarchy. 6) Christian unity based on John 17:21.",
                 
@@ -1440,7 +1454,7 @@
                 } else if (lowerMessage.includes('program') || lowerMessage.includes('ministry') || lowerMessage.includes('activity') || lowerMessage.includes('youth') || lowerMessage.includes('ladies')) {
                     return knowledgeBase.programs;
                 } else if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('email') || lowerMessage.includes('address')) {
-                    return "You can contact Churches of Christ in Liberia at: Phone: 0776545317, Email: cocliberia@gmail.com, Headquarters: ELWA, Monrovia, Liberia. I'm also available to answer any questions you may have about our work in all 15 counties of Liberia.";
+                    return "You can contact Churches of Christ in Liberia at: Phone: +321776545317, Email: cocliberia1964@gmail.com, Headquarters: ELWA, Monrovia, Liberia. I'm also available to answer any questions you may have about our work in all 15 counties of Liberia.";
                 } else if (lowerMessage.includes('baptism') || lowerMessage.includes('immerse') || lowerMessage.includes('water')) {
                     return knowledgeBase.baptism;
                 } else if (lowerMessage.includes('worship') || lowerMessage.includes('service') || lowerMessage.includes('singing') || lowerMessage.includes('supper')) {
